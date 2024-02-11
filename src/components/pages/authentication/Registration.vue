@@ -4,10 +4,14 @@
         <v-card class="mx-auto" max-width="400">
             <v-card-title class="text-center">Registration</v-card-title>
             <v-card-text>
-                <v-form @submit.prevent="login">
-                    <v-text-field v-model="username" label="Username" outlined :rules="[rules.required]"></v-text-field>
-                    <v-text-field v-model="password" label="Password" type="password" outlined
+                <v-form @submit.prevent="register">
+                    <v-text-field v-model="userObject.username" label="Username" outlined
                         :rules="[rules.required]"></v-text-field>
+                    <v-text-field v-model="userObject.password" label="Password" type="password" outlined
+                        :rules="[rules.required]"></v-text-field>
+                    <v-text-field v-model="userObject.confirmPassword" label="Confirm Password" type="password" outlined
+                        :rules="[rules.required]"></v-text-field>
+                    <v-text-field v-model="userObject.email" label="Email" outlined></v-text-field>
                     <v-btn color="primary" block type="submit">Register</v-btn>
                 </v-form>
                 <v-divider></v-divider>
@@ -25,8 +29,12 @@ const toast = useToast()
 export default {
     data() {
         return {
-            username: '',
-            password: '',
+            userObject: {
+                username: '',
+                password: '',
+                confirmPassword: '',
+                email: ''
+            },
             rules: {
                 required: value => !!value || 'Required.',
             },
@@ -38,11 +46,11 @@ export default {
         VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle
     },
     methods: {
-        async login() {
+        async register() {
             try {
-                if (!this.username || !this.password) return
-                const response = await axios.post('/auth/login', { 'username': this.username, 'password': this.password })
-                document.cookie = `jwt=${response.data}; path=/`
+                if (this.userObject.password !== this.userObject.confirmPassword) toast.error('The passwords must match.')
+                if (!this.userObject.username || !this.userObject.password || !this.userObject.confirmPassword) return
+                await axios.post('/auth/register', this.userObject)
             } catch (error) {
                 toast.error('Invalid username/password combination.')
             }

@@ -24,7 +24,7 @@
 import Navbar from '../../partial/Navbar.vue'
 import axios from '../../../services/axios'
 import { useToast } from "vue-toastification"
-import { useRouter } from 'vue-router'
+import router from '../../../services/router.js'
 import { VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle } from 'vuetify/lib/components'
 const toast = useToast()
 export default {
@@ -48,13 +48,11 @@ export default {
                 if (!this.username || !this.password) return
                 const response = await axios.post('/auth/login', { 'username': this.username, 'password': this.password })
                 document.cookie = `jwt=${response.data}; path=/`
+                router.push('/')
             } catch (error) {
+                console.log(error)
                 toast.error('Invalid username/password combination.')
             }
-        },
-        navigateToRegistration() {
-            const router = useRouter()
-            router.push('/user/register')
         }
     }
 }
