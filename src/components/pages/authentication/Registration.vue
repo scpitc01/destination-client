@@ -8,8 +8,6 @@
                     <v-text-field v-model="username" label="Username" outlined :rules="[rules.required]"></v-text-field>
                     <v-text-field v-model="password" label="Password" type="password" outlined
                         :rules="[rules.required]"></v-text-field>
-                    <v-btn color="primary" block type="submit">Submit</v-btn>
-                    <br />
                     <v-btn color="primary" block type="submit">Register</v-btn>
                 </v-form>
                 <v-divider></v-divider>

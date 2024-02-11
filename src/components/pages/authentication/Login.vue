@@ -10,7 +10,9 @@
                         :rules="[rules.required]"></v-text-field>
                     <v-btn color="primary" block type="submit">Login</v-btn>
                     <br />
-                    <v-btn color="primary" block type="submit">Register</v-btn>
+                    <router-link to="/user/register">
+                        <v-btn color="primary" block>Register</v-btn>
+                    </router-link>
                 </v-form>
                 <v-divider></v-divider>
             </v-card-text>
@@ -22,6 +24,7 @@
 import Navbar from '../../partial/Navbar.vue'
 import axios from '../../../services/axios'
 import { useToast } from "vue-toastification"
+import { useRouter } from 'vue-router'
 import { VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle } from 'vuetify/lib/components'
 const toast = useToast()
 export default {
@@ -48,6 +51,10 @@ export default {
             } catch (error) {
                 toast.error('Invalid username/password combination.')
             }
+        },
+        navigateToRegistration() {
+            const router = useRouter()
+            router.push('/user/register')
         }
     }
 }
