@@ -11,7 +11,7 @@
             </template>
             <v-list>
                 <v-list-item>
-                    <v-switch v-model="hints" color="purple" label="Enable hints" hide-details></v-switch>
+                    <v-switch v-model="isDarkMode" label="Flip Light/Dark" hide-details></v-switch>
                 </v-list-item>
                 <v-list-item>
                     <v-btn @click="logout" icon="mdi-logout"></v-btn>
@@ -27,6 +27,11 @@ import router from '../../services/router.js'
 
 export default {
     name: 'NavBar',
+    data() {
+        return {
+            isDarkMode: false
+        }
+    },
     props: {
         msg: String
     },
