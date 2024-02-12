@@ -50,7 +50,6 @@ export default {
                 document.cookie = `jwt=${response.data}; path=/`
                 router.push('/')
             } catch (error) {
-                console.log(error)
                 toast.error('Invalid username/password combination.')
             }
         }

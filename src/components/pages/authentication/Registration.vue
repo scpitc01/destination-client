@@ -23,6 +23,7 @@
 <script>
 import Navbar from '../../partial/Navbar.vue'
 import axios from '../../../services/axios'
+import router from '../../../services/router.js'
 import { useToast } from "vue-toastification"
 import { VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle } from 'vuetify/lib/components'
 const toast = useToast()
@@ -51,8 +52,9 @@ export default {
                 if (this.userObject.password !== this.userObject.confirmPassword) toast.error('The passwords must match.')
                 if (!this.userObject.username || !this.userObject.password || !this.userObject.confirmPassword) return
                 await axios.post('/auth/register', this.userObject)
+                router.push('/user/login')
             } catch (error) {
-                toast.error('Invalid username/password combination.')
+                toast.error('Issue creating user please contact website owner.')
             }
         }
     }
