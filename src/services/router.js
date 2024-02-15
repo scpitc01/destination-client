@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router' // Import Vue Router
 import Home from '../components/pages/Home.vue'
 import Login from '../components/pages/authentication/Login.vue'
 import Registration from '../components/pages/authentication/Registration.vue'
+import axios from './axios'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,15 +13,20 @@ const router = createRouter({
     ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*=\s*([^;]*).*$)|^.*$/, '$1')
         if (!token) {
             // Redirect to login page if JWT token is missing
             next('/user/login')
         } else {
-            // Continue to the requested route
-            next()
+            try {
+                await axios.get('/auth/token/valid')
+                next()
+            }
+            catch (err) {
+                next('/user/login')
+            }
         }
     } else {
         // Continue to the requested route
