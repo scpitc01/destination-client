@@ -1,9 +1,6 @@
 
 <template>
-    <v-toolbar color="primary" dark flat>
-        <template v-slot:prepend>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        </template>
+    <v-app-bar color="primary" dark flat>
         <v-app-bar-title>Destination App</v-app-bar-title>
         <v-menu>
             <template v-slot:activator="{ props }">
@@ -18,11 +15,11 @@
                 </v-list-item>
             </v-list>
         </v-menu>
-    </v-toolbar>
+    </v-app-bar>
 </template>
 
 <script>
-import { VToolbar, VAppBarNavIcon, VAppBarTitle, VBtn, VMenu, VList, VListItem, VSwitch } from 'vuetify/lib/components'
+import { VAppBar, VAppBarTitle, VBtn, VMenu, VList, VListItem, VSwitch } from 'vuetify/lib/components'
 import router from '../../services/router.js'
 
 export default {
@@ -36,8 +33,7 @@ export default {
         msg: String
     },
     components: {
-        VToolbar,
-        VAppBarNavIcon,
+        VAppBar,
         VAppBarTitle,
         VBtn,
         VMenu,
