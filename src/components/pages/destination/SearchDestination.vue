@@ -46,6 +46,7 @@ import { useToast } from "vue-toastification"
 import { VContainer, VRow, VForm, VTextField, VBtn, VCol, VSelect, VLayout, VMain, VDataTable } from 'vuetify/lib/components'
 import Navbar from '../../partial/Navbar.vue'
 import SideNavDrawer from '../../partial/SideNavDrawer.vue'
+import router from '../../../services/router.js'
 const toast = useToast()
 
 export default {
@@ -96,6 +97,7 @@ export default {
         },
         async navigateToRatingsPage(destinationId) {
             console.log(destinationId)
+            router.push(`/destination/rating/${destinationId}`)
         }
     }
 }
