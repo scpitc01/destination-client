@@ -11,10 +11,10 @@
                     <h3>Destination Rating for {{ responseData.city }}, {{ responseData.state }}</h3>
                     <br />
                     <v-row>
-                        <v-rating v-model="rating" half-increments hover active-color="blue"
+                        <v-rating v-model="destinationRating.rating" half-increments hover active-color="blue"
                             color="orange-lighten-1"></v-rating>
                         &nbsp;&nbsp;
-                        <v-btn color="primary" type="submit">Update Rating</v-btn>
+                        <v-btn color="primary" @click="saveRating" type="submit">Update Rating</v-btn>
                     </v-row>
                     <v-row>
 
@@ -187,6 +187,12 @@ export default {
                 { title: 'Type', value: 'type' },
                 { title: 'Address', value: 'address' }
             ],
+            destinationRating: {
+                _id: '',
+                rating: 0,
+                userId: null,
+                destinationId: null
+            }
         }
     },
     created() {
@@ -209,12 +215,38 @@ export default {
     }, methods: {
         async fetchData(id) {
             try {
+                const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
                 this.isLoading = true
                 const response = await axios.get(`/destination/${id}`)
+                const destinationResponse = await axios.get(`/destination/rating/${userId}/${id}`)
+                if (destinationResponse.data) {
+                    this.destinationRating = destinationResponse.data
+                }
                 this.responseData = response.data
                 this.isLoading = false
             } catch (error) {
                 toast.error('Unable to retrieve destination information. Please try to add the destination again or contact the admin.')
+            }
+        },
+        async saveRating() {
+            if (this.destinationRating?._id == '') {
+                try {
+                    this.destinationRating.userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+                    this.destinationRating.destinationId = this.$route.params.id
+                    await axios.post(`/destination/rating`, this.destinationRating)
+                }
+                catch (err) {
+                    toast.error('Unable create new destination rating. Please let the owner know if this error')
+                }
+
+            }
+            else {
+                try {
+                    await axios.patch(`/destination/rating`, this.destinationRating)
+                }
+                catch (err) {
+                    toast.error('Unable to update destination rating. Please let the owner know if this error persists.')
+                }
             }
         }
     }

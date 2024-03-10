@@ -55,6 +55,8 @@ export default {
                 const response = await axios.post('/auth/login', { 'username': this.username, 'password': this.password })
                 console.log(response)
                 document.cookie = `jwt=${response.data.token}; path=/`
+                document.cookie = `userId=${response.data.userId}; path=/`
+                document.cookie = ` path=/`
                 router.push('/')
             } catch (error) {
                 toast.error('Invalid username/password combination.')
