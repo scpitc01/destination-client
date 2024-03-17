@@ -5,7 +5,7 @@
                     type="submit">Destination<br />Recommendations</v-btn></v-list-item>
             <v-list-item><v-btn @click="goToAddDestinationPage" block
                     type="submit">Add<br />Destination</v-btn></v-list-item>
-            <v-list-item><v-btn block type="submit">List
+            <v-list-item><v-btn @click="listRatedDestinations" block type="submit">List
                     Rated<br />Destination</v-btn></v-list-item>
         </v-list>
     </v-navigation-drawer>
@@ -35,6 +35,10 @@ export default {
         },
         goToAddDestinationPage() {
             router.push('/destination/add')
+        },
+        listRatedDestinations() {
+            const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+            router.push(`/destination/user/${userId}`)
         }
     }
 }

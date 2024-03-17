@@ -169,6 +169,7 @@
 
 <script>
 import axios from '../../../services/axios'
+import router from '../../../services/router.js'
 import { useToast } from "vue-toastification"
 import { VContainer, VLayout, VMain, VRating, VRow, VBtn, VCheckbox, VDataTable } from 'vuetify/lib/components'
 import Navbar from '../../partial/Navbar.vue'
@@ -234,6 +235,8 @@ export default {
                     this.destinationRating.userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
                     this.destinationRating.destinationId = this.$route.params.id
                     await axios.post(`/destination/rating`, this.destinationRating)
+                    const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+                    router.push(`/destination/user/${userId}`)
                 }
                 catch (err) {
                     toast.error('Unable create new destination rating. Please let the owner know if this error')
@@ -243,6 +246,8 @@ export default {
             else {
                 try {
                     await axios.patch(`/destination/rating`, this.destinationRating)
+                    const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+                    router.push(`/destination/user/${userId}`)
                 }
                 catch (err) {
                     toast.error('Unable to update destination rating. Please let the owner know if this error persists.')
