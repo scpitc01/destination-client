@@ -26,20 +26,24 @@
                             v-model="responseData.hasArtisticsPlays"></v-checkbox>
                     </v-row>
                     <v-row>
-                        <v-checkbox cols="3" :disabled="true" label="Beach" v-model="responseData.hasBeach"></v-checkbox>
-                        <v-checkbox cols="3" :disabled="true" label="Casino" v-model="responseData.hasCasino"></v-checkbox>
+                        <v-checkbox cols="3" :disabled="true" label="Beach"
+                            v-model="responseData.hasBeach"></v-checkbox>
+                        <v-checkbox cols="3" :disabled="true" label="Casino"
+                            v-model="responseData.hasCasino"></v-checkbox>
                         <v-checkbox cols="3" :disabled="true" label="Mountains"
                             v-model="responseData.hasMountains"></v-checkbox>
                     </v-row>
                     <v-row>
-                        <v-checkbox cols="3" :disabled="true" label="Musuems" v-model="responseData.hasMuseum"></v-checkbox>
+                        <v-checkbox cols="3" :disabled="true" label="Musuems"
+                            v-model="responseData.hasMuseum"></v-checkbox>
                         <v-checkbox cols="3" :disabled="true" label="Night Life"
                             v-model="responseData.hasNightLife"></v-checkbox>
                         <v-checkbox cols="3" :disabled="true" label="Outdoor Activities"
                             v-model="responseData.hasOutdoorActivities"></v-checkbox>
                     </v-row>
                     <v-row>
-                        <v-checkbox cols="3" :disabled="true" label="Skiing" v-model="responseData.hasSkiing"></v-checkbox>
+                        <v-checkbox cols="3" :disabled="true" label="Skiing"
+                            v-model="responseData.hasSkiing"></v-checkbox>
                         <v-checkbox cols="3" :disabled="true" label="Sports Stadiums"
                             v-model="responseData.hasSportStadium"></v-checkbox>
                         <v-checkbox cols="3" :disabled="true" label="Zoos" v-model="responseData.hasZoo"></v-checkbox>
@@ -230,7 +234,7 @@ export default {
             }
         },
         async saveRating() {
-            if (this.destinationRating?._id == '') {
+            if (!this.destinationRating?._id || this.destinationRating.id == '') {
                 try {
                     this.destinationRating.userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
                     this.destinationRating.destinationId = this.$route.params.id

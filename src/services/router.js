@@ -27,7 +27,9 @@ router.beforeEach(async (to, from, next) => {
             next('/user/login')
         } else {
             try {
-                await axios.get('/auth/token/valid')
+                const response = await axios.get('/auth/token/valid')
+                document.cookie = `jwt=${response.data.token}; path=/`
+
                 next()
             }
             catch (err) {
