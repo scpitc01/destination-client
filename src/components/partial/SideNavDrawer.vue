@@ -7,6 +7,7 @@
                     type="submit">Add<br />Destination</v-btn></v-list-item>
             <v-list-item><v-btn @click="listRatedDestinations" block type="submit">List
                     Rated<br />Destination</v-btn></v-list-item>
+            <v-list-item><v-btn @click="goToSupport" block type="submit">Support</v-btn></v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -31,10 +32,14 @@ export default {
         VBtn
     }, methods: {
         goToDestinationRecommendation() {
-            router.push('/')
+            const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+            router.push(`/recommendation/user/${userId}`)
         },
         goToAddDestinationPage() {
             router.push('/destination/add')
+        },
+        goToSupport() {
+            router.push('/support')
         },
         listRatedDestinations() {
             const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')

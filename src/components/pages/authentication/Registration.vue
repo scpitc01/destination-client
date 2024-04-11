@@ -1,23 +1,25 @@
 <template>
-    <Navbar />
-    <v-container>
-        <v-card class="mx-auto" max-width="400">
-            <v-card-title class="text-center">Registration</v-card-title>
-            <v-card-text>
-                <v-form @submit.prevent="register">
-                    <v-text-field v-model="userObject.username" label="Username" outlined
-                        :rules="[rules.required]"></v-text-field>
-                    <v-text-field v-model="userObject.password" label="Password" type="password" outlined
-                        :rules="[rules.required]"></v-text-field>
-                    <v-text-field v-model="userObject.confirmPassword" label="Confirm Password" type="password" outlined
-                        :rules="[rules.required]"></v-text-field>
-                    <v-text-field v-model="userObject.email" label="Email" outlined></v-text-field>
-                    <v-btn color="primary" block type="submit">Register</v-btn>
-                </v-form>
-                <v-divider></v-divider>
-            </v-card-text>
-        </v-card>
-    </v-container>
+    <v-layout class="rounded rounded-md">
+        <Navbar />
+        <v-main>
+            <v-card class="mx-auto" max-width="400">
+                <v-card-title class="text-center">Registration</v-card-title>
+                <v-card-text>
+                    <v-form @submit.prevent="register">
+                        <v-text-field v-model="userObject.username" label="Username" outlined
+                            :rules="[rules.required]"></v-text-field>
+                        <v-text-field v-model="userObject.password" label="Password" type="password" outlined
+                            :rules="[rules.required]"></v-text-field>
+                        <v-text-field v-model="userObject.confirmPassword" label="Confirm Password" type="password"
+                            outlined :rules="[rules.required]"></v-text-field>
+                        <v-text-field v-model="userObject.email" label="Email" outlined></v-text-field>
+                        <v-btn color="primary" block type="submit">Register</v-btn>
+                    </v-form>
+                    <v-divider></v-divider>
+                </v-card-text>
+            </v-card>
+        </v-main>
+    </v-layout>
 </template>
 
 <script>
@@ -25,7 +27,7 @@ import Navbar from '../../partial/Navbar.vue'
 import axios from '../../../services/axios'
 import router from '../../../services/router.js'
 import { useToast } from "vue-toastification"
-import { VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle } from 'vuetify/lib/components'
+import { VMain, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle, VLayout } from 'vuetify/lib/components'
 const toast = useToast()
 export default {
     data() {
@@ -44,7 +46,7 @@ export default {
     name: 'RegistrationView',
     components: {
         Navbar,
-        VContainer, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle
+        VMain, VCard, VForm, VBtn, VDivider, VTextField, VCardText, VCardTitle, VLayout
     },
     methods: {
         async register() {

@@ -5,6 +5,8 @@ import Registration from '../components/pages/authentication/Registration.vue'
 import AddDestination from '../components/pages/destination/SearchDestination.vue'
 import AddDestinationRating from '../components/pages/destination/DestinationRating.vue'
 import ListRatedDestinations from '../components/pages/destination/ListRatedDestinations.vue'
+import ListRecommendationsView from '../components/pages/destination/ListRecommendations.vue'
+import Support from '../components/pages/support/Support.vue'
 import axios from './axios'
 
 const router = createRouter({
@@ -15,7 +17,10 @@ const router = createRouter({
         { path: '/user/register', component: Registration },
         { path: '/destination/add', component: AddDestination, meta: { requiresAuth: true } },
         { path: '/destination/rating/:id', component: AddDestinationRating, meta: { requiresAuth: true } },
-        { path: '/destination/user/:id', component: ListRatedDestinations, meta: { requiresAuth: true } }
+        { path: '/destination/user/:id', component: ListRatedDestinations, meta: { requiresAuth: true } },
+        { path: '/recommendation/user/:id', component: ListRecommendationsView, meta: { requiresAuth: true } },
+        { path: '/support', component: Support, meta: { requiresAuth: true } }
+
     ]
 })
 

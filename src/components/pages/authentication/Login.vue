@@ -57,7 +57,8 @@ export default {
                 document.cookie = `jwt=${response.data.token}; path=/`
                 document.cookie = `userId=${response.data.userId}; path=/`
                 document.cookie = ` path=/`
-                router.push('/')
+                const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
+                router.push(`/recommendation/user/${userId}`)
             } catch (error) {
                 toast.error('Invalid username/password combination.')
             }
