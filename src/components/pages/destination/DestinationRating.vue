@@ -238,6 +238,7 @@ export default {
                 try {
                     this.destinationRating.userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
                     this.destinationRating.destinationId = this.$route.params.id
+                    this.destinationRating.rating ?? 0
                     await axios.post(`/destination/rating`, this.destinationRating)
                     const userId = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1')
                     router.push(`/destination/user/${userId}`)
