@@ -21,7 +21,7 @@
                                 <v-btn icon="mdi-pencil" @click="goToEditPage(item.destinationId)"></v-btn>
                             </td>
                             <td>
-                                <v-btn icon="mdi-trash-can" @click="navigateToRatingsPage(item._id)"></v-btn>
+                                <v-btn icon="mdi-trash-can" @click="removeRating(item.destinationId)"></v-btn>
                             </td>
                         </tr>
                     </template>
@@ -44,6 +44,7 @@ export default {
     name: 'ListRatedDestinationsView',
     data() {
         return {
+            userId: '',
             responseData: [],
             isLoading: false,
             headers: [
@@ -77,6 +78,7 @@ export default {
                 this.responseData = response.data
                 console.log(this.responseData)
                 this.isLoading = false
+                this.userId = userId
             } catch (error) {
                 toast.error('Unable to retrieve users destination information. Please try to load the page again or contact the admin.')
             }
@@ -84,8 +86,13 @@ export default {
         async goToEditPage(destinationId) {
             router.push(`/destination/rating/${destinationId}`)
         },
-        async removeRating(destinationRatingId) {
-            console.log(destinationRatingId)
+        async removeRating(destinationId) {
+            try {
+                await axios.delete(`/destination/rating/${this.userId}/${destinationId}`)
+                this.fetchData(this.userId)
+            } catch (error) {
+                toast.error('Unable to delete users destination information. Please try to load the page again or contact the admin.')
+            }
         }
     }
 }
